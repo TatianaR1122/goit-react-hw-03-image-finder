@@ -1,21 +1,12 @@
-function fetchImages(findValue, pageNumber) {
-    const KEY = '34349101-ec25eec32b9371237ca900ff3';
-    const URL = 'https://pixabay.com/api/';
+import axios from 'axios';
 
-    return fetch(
-        `${URL}?q=${findValue}&page=${pageNumber}&key=${KEY}&image_type=photo&orientation=horizontal&per_page=12`
-      )
-        .then(response => {
-          if (response.ok) {
-            return response.json();
-          }
-          return Promise.reject(new Error(`Oh no... We can  not find ${findValue}`));
-        })
-        .then(res => {
-          return res.hits;
-        });
+const KEY = '34349101-ec25eec32b9371237ca900ff3';
+
+function getImagesPixabay(page = 1, query, per_page) {
+  const res = axios(
+    `https://pixabay.com/api/?q=${query}&page=${page}&key=${KEY}&image_type=photo&orientation=horizontal&per_page=${per_page}`
+  );
+  return res;
 }
 
-const api = { fetchImages };
-
-export default api;
+export default getImagesPixabay;
