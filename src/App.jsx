@@ -33,6 +33,8 @@ export class App extends Component {
   componentDidUpdate(_, prevState) {
     const prevFindValue = prevState.findValue;
     const nextFindValue = this.state.findValue;
+    // const prevPageNumber = prevState.pageNumber;
+    // const nextPageNumber = this.state.pageNumber;
 
     if (prevFindValue !== nextFindValue) {
       this.setState({ status: 'pending' });
@@ -57,7 +59,7 @@ export class App extends Component {
         this.setState(({ images }) => ({
           images: [...images, ...hits],
           status: 'resolved',
-          // pageNumber: pageNumber + 1,
+          pageNumber: pageNumber + 1,
           showBtn: this.state.pageNumber < Math.ceil(totalHits / 12),
         }))
       )
@@ -65,7 +67,7 @@ export class App extends Component {
   };
 
   onLoadMore = () => {
-    // this.getImages();
+    this.getImages();
     this.setState(prevState => ({
       pageNumber: prevState.pageNumber + 1,
     }));
@@ -97,7 +99,8 @@ export class App extends Component {
         {showModal && (
           <Modal src={largeImageURL} onCloseModal={this.modalToggle} />
         )}
-        {showBtn && <Button onClick={this.onLoadMore} />}
+        {showBtn && <Button onLoadMore={this.onLoadMore} />}
+
         <ToastContainer position="top-right" autoClose={2000} theme="colored" />
       </div>
     );
