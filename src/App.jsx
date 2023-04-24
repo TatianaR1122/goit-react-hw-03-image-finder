@@ -31,12 +31,15 @@ export class App extends Component {
   };
 
   componentDidUpdate(_, prevState) {
-    const prevFindValue = prevState.findValue;
-    const nextFindValue = this.state.findValue;
+    // const prevFindValue = prevState.findValue;
+    // const nextFindValue = this.state.findValue;
     // const prevPageNumber = prevState.pageNumber;
     // const nextPageNumber = this.state.pageNumber;
-
-    if (prevFindValue !== nextFindValue) {
+    // const { findValue, pageNumber } = this.state;
+    if (
+      prevState.findValue !== this.state.findValue ||
+      prevState.pageNumber !== this.state.pageNumber
+    ) {
       this.setState({ status: 'pending' });
 
       this.getImages();
@@ -59,7 +62,6 @@ export class App extends Component {
         this.setState(({ images }) => ({
           images: [...images, ...hits],
           status: 'resolved',
-          pageNumber: pageNumber + 1,
           showBtn: this.state.pageNumber < Math.ceil(totalHits / 12),
         }))
       )
@@ -67,7 +69,7 @@ export class App extends Component {
   };
 
   onLoadMore = () => {
-    this.getImages();
+    // this.getImages();
     this.setState(prevState => ({
       pageNumber: prevState.pageNumber + 1,
     }));
