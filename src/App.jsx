@@ -30,7 +30,7 @@ export class App extends Component {
     });
   };
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(_, prevState) {
     const prevFindValue = prevState.findValue;
     const nextFindValue = this.state.findValue;
 
@@ -53,19 +53,22 @@ export class App extends Component {
 
     imagesAPI
       .fetchImages(findValue, pageNumber)
-      .then(res =>
-        this.setState(({ images, pageNumber }) => ({
-          images: [...images, ...res],
+      .then(({ hits, totalHits }) =>
+        this.setState(({ images }) => ({
+          images: [...images, ...hits],
           status: 'resolved',
-          pageNumber: pageNumber + 1,
-          showBtn: this.setState.pageNumber < Math.ceil(res / 12),
+          // pageNumber: pageNumber + 1,
+          showBtn: this.state.pageNumber < Math.ceil(totalHits / 12),
         }))
       )
       .catch(error => this.setState({ error, status: 'rejected' }));
   };
 
   onLoadMore = () => {
-    this.getImages();
+    // this.getImages();
+    this.setState(prevState => ({
+      pageNumber: prevState.pageNumber + 1,
+    }));
   };
 
   onOpenModal = url => {

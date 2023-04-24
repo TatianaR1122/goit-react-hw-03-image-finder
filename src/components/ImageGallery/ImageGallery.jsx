@@ -4,14 +4,14 @@ import { toast } from 'react-toastify';
 
 import { ImageGalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem';
 import { Loader } from 'components/Loader/Loader';
-import Button from 'components/Button/Button';
+// import Button from 'components/Button/Button';
 
 import './ImageGallery.css';
 
 export class ImageGallery extends Component {
   static propTypes = {
     onClick: PropTypes.func.isRequired,
-    onLoadMore: PropTypes.func.isRequired,
+    // onLoadMore: PropTypes.func.isRequired,
     status: PropTypes.string.isRequired,
     error: PropTypes.string,
     images: PropTypes.array,
@@ -22,7 +22,7 @@ export class ImageGallery extends Component {
   };
 
   render() {
-    const { status, images, onLoadMore } = this.props;
+    const { status, images } = this.props;
 
     if (status === 'idle') {
       return <div className="Info">The gallery is empty</div>;
@@ -47,7 +47,7 @@ export class ImageGallery extends Component {
               />
             ))}
           </ul>
-          {<Button onLoadMore={onLoadMore} />}
+          {/* {<Button onLoadMore={onLoadMore} />} */}
         </>
       );
     } else {

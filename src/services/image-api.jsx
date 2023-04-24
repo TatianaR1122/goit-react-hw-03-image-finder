@@ -4,16 +4,15 @@ function fetchImages(findValue, pageNumber) {
 
   return fetch(
     `${URL}?q=${findValue}&page=${pageNumber}&key=${KEY}&image_type=photo&orientation=horizontal&per_page=12`
-  )
-    .then(response => {
-      if (response.ok) {
-        return response.json();
-      }
-      return Promise.reject(new Error(`Oh no... We cant find ${findValue}`));
-    })
-    .then(res => {
-      return res.hits;
-    });
+  ).then(response => {
+    if (response.ok) {
+      return response.json();
+    }
+    return Promise.reject(new Error(`Oh no... We cant find ${findValue}`));
+  });
+  // .then(res => {
+  //   return res.totalHits;
+  // });
 }
 const api = { fetchImages };
 
