@@ -6,7 +6,7 @@ import imagesAPI from './services/image-api';
 import { Searchbar } from './components/Searchbar/Searchbar';
 import { ImageGallery } from './components/ImageGallery/ImageGallery';
 import { Modal } from './components/Modal/Modal';
-
+import { animateScroll } from 'react-scroll';
 import './App.css';
 import Button from 'components/Button/Button';
 
@@ -46,13 +46,20 @@ export class App extends Component {
     }
 
     if (prevState.pageNumber !== this.state.pageNumber) {
-      window.scrollTo({
-        top: document.documentElement.scrollHeight,
-        behavior: 'smooth',
-      });
+      // window.scrollTo({
+      //   left: document.documentElement.scrollHeight,
+      //   behavior: 'smooth',
+      // });
+      this.scrollOnMoreButton();
     }
   }
-
+  scrollOnMoreButton = () => {
+    animateScroll.scrollToBottom({
+      duration: 1000,
+      delay: 10,
+      smooth: 'linear',
+    });
+  };
   getImages = () => {
     const { findValue, pageNumber } = this.state;
 
