@@ -7,8 +7,10 @@ import { Searchbar } from './components/Searchbar/Searchbar';
 import { ImageGallery } from './components/ImageGallery/ImageGallery';
 import { Modal } from './components/Modal/Modal';
 import { animateScroll } from 'react-scroll';
-import './App.css';
 import Button from 'components/Button/Button';
+import { Loader } from 'components/Loader/Loader';
+
+import './App.css';
 
 export class App extends Component {
   state = {
@@ -31,11 +33,6 @@ export class App extends Component {
   };
 
   componentDidUpdate(_, prevState) {
-    // const prevFindValue = prevState.findValue;
-    // const nextFindValue = this.state.findValue;
-    // const prevPageNumber = prevState.pageNumber;
-    // const nextPageNumber = this.state.pageNumber;
-    // const { findValue, pageNumber } = this.state;
     if (
       prevState.findValue !== this.state.findValue ||
       prevState.pageNumber !== this.state.pageNumber
@@ -46,10 +43,6 @@ export class App extends Component {
     }
 
     if (prevState.pageNumber !== this.state.pageNumber) {
-      // window.scrollTo({
-      //   left: document.documentElement.scrollHeight,
-      //   behavior: 'smooth',
-      // });
       this.scrollOnMoreButton();
     }
   }
@@ -76,7 +69,6 @@ export class App extends Component {
   };
 
   onLoadMore = () => {
-    // this.getImages();
     this.setState(prevState => ({
       pageNumber: prevState.pageNumber + 1,
     }));
@@ -109,7 +101,9 @@ export class App extends Component {
           <Modal src={largeImageURL} onCloseModal={this.modalToggle} />
         )}
         {showBtn && <Button onLoadMore={this.onLoadMore} />}
-
+        {status === 'idle' && <div className="Info">The gallery is empty</div>}
+        {status === 'pending' && <Loader />}
+        {status === 'rejected' && <div className="Info">We cant find it</div>}
         <ToastContainer position="top-right" autoClose={2000} theme="colored" />
       </div>
     );

@@ -10,9 +10,6 @@ function fetchImages(findValue, pageNumber) {
     }
     return Promise.reject(new Error(`Oh no... We cant find ${findValue}`));
   });
-  // .then(res => {
-  //   return res.totalHits;
-  // });
 }
 const api = { fetchImages };
 
